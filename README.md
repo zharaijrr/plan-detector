@@ -22,6 +22,8 @@ Librería en Python para la detección de líneas, esquinas e intersecciones en 
 
 pip install -r requirements.txt
 
+pip install .
+
 ##### 
 
 ##### Ejecución en Anaconda Prompt
@@ -39,8 +41,4 @@ Abrir y ejecutar el archivo run\_spyder.py
 ##### Imagen de prueba
 
 El proyecto incluye imágenes de prueba dentro de la carpeta IMAGENES, en el main se usa la imagen numero 5 :).
-
-
-
-
 
