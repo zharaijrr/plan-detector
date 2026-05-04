@@ -15,6 +15,6 @@ setup(
         "opencv-python",
         "numpy"
     ],
-    author="Equipo",
+    author="Equipo POZONKE",
     description="Libreria para deteccion de lineas, esquinas e intersecciones en planos arquitectonicos"
 )

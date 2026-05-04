@@ -8,3 +8,4 @@ Created on Fri May  1 16:32:24 2026
 from .preprocesamiento import preprocess
 from .deteccion import detect
 from .postprocesamiento import postprocess
+from .MAINCHINGON import main
