@@ -6,6 +6,13 @@ Created on Fri May  1 01:20:00 2026
 
 CODIGO MAIN
 """
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  1 01:20:00 2026
+@author: ISAHISURISADAYIBARRA
+
+CODIGO MAIN
+"""
 
 import cv2
 import numpy as np
@@ -15,12 +22,11 @@ from .preprocesamiento import preprocess
 from .deteccion import detect
 from .postprocesamiento import postprocess
 
+
 def main():
     print("=== PIPELINE DE DETECCIÓN DE PLANOS ===")
 
-    # Cargar imagen
-  
-
+    # Cargar imagen usando ruta interna del paquete
     base_path = os.path.dirname(__file__)
     image_path = os.path.join(base_path, "IMAGENES", "IMAGEN5LIB.jpg")
     img = cv2.imread(image_path)
@@ -67,6 +73,7 @@ def main():
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     main()
