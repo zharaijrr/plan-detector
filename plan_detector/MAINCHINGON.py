@@ -9,6 +9,7 @@ CODIGO MAIN
 
 import cv2
 import numpy as np
+import os
 
 from .preprocesamiento import preprocess
 from .deteccion import detect
@@ -18,7 +19,11 @@ def main():
     print("=== PIPELINE DE DETECCIÓN DE PLANOS ===")
 
     # Cargar imagen
-    img = cv2.imread("plan_detector/IMAGENES/IMAGEN5LIB.jpg")
+  
+
+    base_path = os.path.dirname(__file__)
+    image_path = os.path.join(base_path, "IMAGENES", "IMAGEN5LIB.jpg")
+    img = cv2.imread(image_path)
 
     if img is None:
         print("Error: no se pudo cargar la imagen")
