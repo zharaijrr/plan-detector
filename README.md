@@ -34,7 +34,13 @@ python -m plan\_detector.MAINCHINGON
 
 ##### Ejecución en Spyder
 
-Abrir y ejecutar el archivo run\_spyder.py
+1-. librería plan\_detector
+
+ej: from plan\_detector import main
+
+&#x20;   main()
+
+2-. Abrir y ejecutar el archivo run\_spyder.py
 
 ##### 
 
