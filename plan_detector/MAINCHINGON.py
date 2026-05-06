@@ -13,7 +13,6 @@ Created on Fri May  1 01:20:00 2026
 
 CODIGO MAIN
 """
-
 import cv2
 import numpy as np
 import os
@@ -26,14 +25,32 @@ from .postprocesamiento import postprocess
 def main():
     print("=== PIPELINE DE DETECCIÓN DE PLANOS ===")
 
-    # Cargar imagen usando ruta interna del paquete
+    # Carpeta interna del paquete
     base_path = os.path.dirname(__file__)
-    image_path = os.path.join(base_path, "IMAGENES", "IMAGEN5LIB.jpg")
+    images_folder = os.path.join(base_path, "IMAGENES")
+
+    # Selección dinámica
+    print("\n[CONFIGURACIÓN]")
+    nombre_archivo = input(
+        "Escribe el nombre de la imagen (ejemplo: IMAGEN1LIB.jpg): "
+    )
+
+    image_path = os.path.join(images_folder, nombre_archivo)
+
+    # Verificar existencia
+    if not os.path.exists(image_path):
+        print(f"\nError: La imagen '{nombre_archivo}' no existe.")
+        print("Verifica que esté dentro de la carpeta IMAGENES del paquete.")
+        return
+
+    # Cargar imagen
     img = cv2.imread(image_path)
 
     if img is None:
         print("Error: no se pudo cargar la imagen")
         return
+
+    print("\n[PROCESANDO...]")
 
     # Pipeline
     img_pre = preprocess(img)
@@ -66,10 +83,14 @@ def main():
     cv2.imshow("Resultado Final (Lineas y Esquinas)", resultado)
 
     # Consola
+    print("-" * 40)
+    print(f"Archivo analizado: {nombre_archivo}")
     print(f"Lineas detectadas: {num_lineas}")
     print(f"Esquinas detectadas: {num_esquinas}")
     print(f"Angulo de correccion aplicado: {angulo:.2f}°")
+    print("-" * 40)
     print("Proceso finalizado correctamente.")
+    print("Presiona cualquier tecla sobre las imágenes para cerrar.")
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
