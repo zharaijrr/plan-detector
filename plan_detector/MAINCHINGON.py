@@ -32,15 +32,23 @@ def main():
     # Selección dinámica
     print("\n[CONFIGURACIÓN]")
     nombre_archivo = input(
-        "Escribe el nombre de la imagen (ejemplo: IMAGEN1LIB.jpg): "
+        "Escribe el nombre de una imagen de prueba "
+        "(ejemplo: IMAGEN1LIB.jpg)\n"
+        "o la ruta completa de una imagen externa:\n"
     )
 
-    image_path = os.path.join(images_folder, nombre_archivo)
+    # Caso 1: ruta externa válida
+    if os.path.exists(nombre_archivo):
+        image_path = nombre_archivo
+    else:
+        # Caso 2: buscar dentro del paquete
+        image_path = os.path.join(images_folder, nombre_archivo)
 
-    # Verificar existencia
+    # Verificación final
     if not os.path.exists(image_path):
-        print(f"\nError: La imagen '{nombre_archivo}' no existe.")
-        print("Verifica que esté dentro de la carpeta IMAGENES del paquete.")
+        print(f"\nError: No se encontró la imagen '{nombre_archivo}'.")
+        print("Si es externa, escribe la ruta completa.")
+        print("Ejemplo: C:/Users/Profesor/Desktop/plano.jpg")
         return
 
     # Cargar imagen
@@ -63,31 +71,41 @@ def main():
 
     # Panel visual
     overlay = resultado.copy()
-    cv2.rectangle(overlay, (20, 40), (420, 160), (60, 60, 60), -1)
-    cv2.addWeighted(overlay, 0.6, resultado, 0.4, 0, resultado)
+    cv2.rectangle(overlay, (20, 40), (450, 180), (40, 40, 40), -1)
+    cv2.addWeighted(overlay, 0.7, resultado, 0.3, 0, resultado)
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    scale = 0.9
+    scale = 0.8
     thickness = 2
 
-    # Texto en imagen
-    cv2.putText(resultado, "Lineas:", (40, 80), font, scale, (0, 180, 220), thickness)
-    cv2.putText(resultado, f"{num_lineas}", (280, 80), font, scale, (0, 180, 220), thickness)
+    # Texto sobre imagen
+    cv2.putText(resultado, f"Analisis: {nombre_archivo}", (40, 75),
+                font, 0.6, (255, 255, 255), 1)
 
-    cv2.putText(resultado, "Esquinas:", (40, 125), font, scale, (50, 220, 50), thickness)
-    cv2.putText(resultado, f"{num_esquinas}", (280, 125), font, scale, (50, 220, 50), thickness)
+    cv2.putText(resultado, f"Lineas detectadas: {num_lineas}", (40, 115),
+                font, scale, (0, 180, 255), thickness)
 
-    # Ventanas
-    cv2.imshow("Imagen Original", img)
-    cv2.imshow("Imagen Rectificada (Transformacion Afin)", img_corr)
-    cv2.imshow("Resultado Final (Lineas y Esquinas)", resultado)
+    cv2.putText(resultado, f"Esquinas (Harris): {num_esquinas}", (40, 155),
+                font, scale, (50, 255, 50), thickness)
+
+    # Ventanas ajustables
+    ventanas = [
+        ("Imagen Original", img),
+        ("Imagen Rectificada (Transformacion Afin)", img_corr),
+        ("Resultado Final", resultado)
+    ]
+
+    for nombre, imagen in ventanas:
+        cv2.namedWindow(nombre, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(nombre, 900, 650)
+        cv2.imshow(nombre, imagen)
 
     # Consola
-    print("-" * 40)
-    print(f"Archivo analizado: {nombre_archivo}")
-    print(f"Lineas detectadas: {num_lineas}")
-    print(f"Esquinas detectadas: {num_esquinas}")
-    print(f"Angulo de correccion aplicado: {angulo:.2f}°")
+    print("\n" + "-" * 40)
+    print(f"RESULTADOS PARA: {nombre_archivo}")
+    print(f"> Lineas detectadas: {num_lineas}")
+    print(f"> Esquinas detectadas: {num_esquinas}")
+    print(f"> Angulo de correccion aplicado: {angulo:.2f}°")
     print("-" * 40)
     print("Proceso finalizado correctamente.")
     print("Presiona cualquier tecla sobre las imágenes para cerrar.")
@@ -98,3 +116,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+ 
